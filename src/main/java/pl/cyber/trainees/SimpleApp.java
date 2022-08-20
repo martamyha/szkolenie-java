@@ -12,9 +12,9 @@ public class SimpleApp {
 
 //    Tablice tablice = new Tablice();
 //    tablice.uruchom();
-
-        Wyjatki wyjatki = new Wyjatki();
-        wyjatki.uruchom();
+//
+//        Wyjatki wyjatki = new Wyjatki();
+//        wyjatki.uruchom();
 
         BankomatService service = new BankomatService();
         service.uruchomRozwiazanie2();
