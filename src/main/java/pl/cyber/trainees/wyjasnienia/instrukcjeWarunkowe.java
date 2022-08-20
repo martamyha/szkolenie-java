@@ -1,7 +1,7 @@
 // DO NADROBIENIA
 package pl.cyber.trainees.wyjasnienia;
 
-public class InstrukcjeWarunkowe {
+public class instrukcjeWarunkowe {
 
 /*
 Instrukcja warunkowa if

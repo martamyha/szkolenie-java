@@ -2,6 +2,7 @@ package pl.cyber.trainees.wyjasnienia.bankomat;
 
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class BankomatService {
@@ -98,7 +99,7 @@ public class BankomatService {
 
         for (Karta el : karty) {
             if (el.getNrKarty().equals(nrKarty)) {
-                el.sprawzPin(nrKarty);
+                el.sprawzPin(pinKarty);
                 czyPrawidlowaKarta = true;
                 karta = el;
             }
@@ -107,6 +108,15 @@ public class BankomatService {
         if (!czyPrawidlowaKarta || karta == null) {
             throw new BusinessException("Wprowadzono błędne dane karty.");
         }
+//ALTERNATYWA W POSTACI WYKORZYSTANIA STRUMIENIA DANYCH
+//        karta = karty.stream()
+//                .filter(Objects::nonNull)
+//                .filter(element -> element.getNrKarty().equals(nrKarty))
+//                .findFirst()
+//                .orElseThrow(() -> {
+//                    throw new BusinessException("Wprowadzono błędne dane karty");
+//                });
+//
 
         do {
 
@@ -125,12 +135,12 @@ public class BankomatService {
                 throw new BusinessException("Nie podano prawidłowej liczby z menu.");
             }
 
-            czyKontynuowac = menu2(userInfo);
+            czyKontynuowac = menu2(userInfo, karta);
 
         } while (czyKontynuowac);
     }
 
-        private boolean menu2(final Integer pozycja) {
+        private boolean menu2(final Integer pozycja, Karta karta) {
 
             Integer kwota = 0;
 
@@ -144,6 +154,7 @@ public class BankomatService {
                         sprawdzWprowadzaneKwoty(kwota);
 
                         bankomat.wplacGotowke(kwota);
+                        karta.wplacGotowke(kwota);
                         break;
 
                     case 2:
@@ -153,7 +164,9 @@ public class BankomatService {
                         sprawdzWprowadzaneKwoty(kwota);
 
                         bankomat.sprawdzWyplate(kwota);
+                        karta.sprawdzWyplate(kwota);
                         bankomat.wyplacGotowke(kwota);
+                        karta.wyplacGotowke(kwota);
 
                         break;
 
@@ -161,6 +174,12 @@ public class BankomatService {
                         System.out.println("Stan konta");
                         System.out.println("Bankomant posiada: " + bankomat.stanKonta());
                         break;
+
+                    case 4:
+                        System.out.println("Saldo karty");
+                        System.out.println("Na karcie posiadasz: " + karta.stanKonta());
+                        break;
+
                 }
             } catch (InputMismatchException e) {
                 throw new BusinessException("Nie podano prawidłowej liczby odnoszącej się do wpłaty/wypłaty.");

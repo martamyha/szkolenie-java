@@ -18,13 +18,25 @@ public class Karta {
         return nrKarty;
     }
 
-    public Karta(final Integer nrKarty) {
-        this.nrKarty = nrKarty;
-    }
-
-    public void sprawzPin(final Integer nrKarty) {
+    public void sprawzPin(final Integer pinKarty) {
         if (!this.pinKarty.equals(pinKarty)) {
             throw new KartaException("Niepoprawny pin dla karty.");
         }
+    }
+
+    public void wplacGotowke(final Integer kwota) {
+        this.saldo += kwota;
+    }
+
+    public void sprawdzWyplate(final Integer kwota) {
+        if (this.saldo - kwota < 0) {
+            throw new KartaException("Niewystarczająca ilość środków na karcie");
+        }
+    }
+    public void wyplacGotowke(final Integer kwota){
+        this.saldo -= kwota;
+    }
+    public Integer stanKonta() {
+        return this.saldo;
     }
 }
