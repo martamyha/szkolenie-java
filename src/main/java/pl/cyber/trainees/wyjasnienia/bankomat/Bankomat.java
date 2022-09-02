@@ -12,7 +12,7 @@ public class Bankomat {
     }
 
     public void wplacGotowke(final Integer kwota) {
-        this.saldo += saldo;
+        this.saldo += kwota;
     }
 
     public void sprawdzWyplate(final Integer kwota) {

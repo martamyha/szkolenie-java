@@ -1,7 +1,6 @@
 package pl.cyber.trainees.wyjasnienia;
 //do nadrobienia
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -109,7 +108,7 @@ public class Wyjatki {
 
 
         try {
-            throw new IllegalArgumentException("test");
+            throw new IllegalArgumentException("src/main/test");
         }
         catch (IllegalArgumentException e) {
             System.out.println("IllegalArgumentException thrown");

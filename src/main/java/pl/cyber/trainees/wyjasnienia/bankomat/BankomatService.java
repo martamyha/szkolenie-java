@@ -2,13 +2,20 @@ package pl.cyber.trainees.wyjasnienia.bankomat;
 
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class BankomatService {
 
     Scanner scanUser = new Scanner(System.in);
-    Bankomat bankomat = new Bankomat();
+    private Bankomat bankomat;
+
+    public BankomatService() {
+        this.bankomat = new Bankomat();
+    }
+
+    public BankomatService(final Bankomat bankomat) {
+    this.bankomat = bankomat;
+    }
 
 
 
@@ -151,23 +158,23 @@ public class BankomatService {
 
                         System.out.print("Proszę podać kwotę wpłaty: ");
                         kwota = scanUser.nextInt();
-                        sprawdzWprowadzaneKwoty(kwota);
 
                         bankomat.wplacGotowke(kwota);
                         karta.wplacGotowke(kwota);
-                        break;
 
+                        dokonajWplaty(kwota,karta);
+                    break;
                     case 2:
                         System.out.println("Wypłacam gotówkę");
                         System.out.print("Proszę podać kwotę wypłaty: ");
                         kwota = scanUser.nextInt();
-                        sprawdzWprowadzaneKwoty(kwota);
+//
+//
+//                        bankomat.sprawdzWyplate(kwota);
+//
+//                        bankomat.wyplacGotowke(kwota);
 
-                        bankomat.sprawdzWyplate(kwota);
-                        karta.sprawdzWyplate(kwota);
-                        bankomat.wyplacGotowke(kwota);
-                        karta.wyplacGotowke(kwota);
-
+                        dokonajWyplaty(kwota,karta);
                         break;
 
                     case 3:
@@ -186,4 +193,21 @@ public class BankomatService {
             }
             return pozycja != 0;
     }
+private void dokonajWplaty(final Integer kwota, Karta karta) {
+    sprawdzWprowadzaneKwoty(kwota);
+
+    bankomat.wplacGotowke(kwota);
+    karta.wplacGotowke(kwota);
+
+}
+private void dokonajWyplaty(final Integer kwota, Karta karta) {
+    sprawdzWprowadzaneKwoty(kwota);
+
+    bankomat.sprawdzWyplate(kwota);
+    karta.sprawdzWyplate(kwota);
+
+    bankomat.wyplacGotowke(kwota);
+    karta.wyplacGotowke(kwota);
+
+}
 }
